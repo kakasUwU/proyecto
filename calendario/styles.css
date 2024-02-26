@@ -1,0 +1,83 @@
+/* Estilo para el contenedor principal */
+.container-main {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #00ff3c; /* Fondo verde */
+}
+
+/* Estilo para el contenedor del formulario */
+.container {
+  background-color: #5ee554; /* Blanco */
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Estilo para los campos de entrada */
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* Estilo para las etiquetas del formulario */
+.form-label {
+  font-weight: bold;
+}
+
+/* Estilo para los botones */
+.btn-primary {
+  padding: 10px 20px;
+  background-color: #0a0806; /* Naranja */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Estilo para el botón al pasar el ratón */
+.btn-primary:hover {
+  background-color: #fdd6a2; /* Naranja más claro */
+}
+
+/* Estilo para el mensaje de confirmación */
+.message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Estilo para el mensaje de éxito */
+.success {
+  background-color: #d4edda; /* Verde */
+  border-color: #c3e6cb; /* Verde más claro */
+  color: #155724; /* Verde más oscuro */
+}
+
+/* Estilo para el mensaje de error */
+.error {
+  background-color: #f8d7da; /* Rojo */
+  border-color: #f5c6cb; /* Rojo más claro */
+  color: #721c24; /* Rojo más oscuro */
+}
+/*imagen*/
+/* Estilo para la imagen de fondo */
+.background-image {
+  width: 110%; /* Ajustar al 100% del contenedor */
+  position: absolute; /* Posición absoluta para cubrir el contenedor */
+  
+  top: 0; /* Alinear en la parte superior del contenedor */
+  left: 0; /* Alinear a la izquierda del contenedor */
+  z-index: -1; /* Enviar detrás del contenido */
+  opacity: 0.5; /* Reducir la opacidad para que no cubra el contenido */
+}
+/* Estilo para el logo */
+.logo {
+  width: 130px; /* Ancho del logo */
+  height: auto; /* Altura automática para mantener la proporción */
+  margin-bottom: 20px; /* Margen inferior para separar del contenido */
+}
+

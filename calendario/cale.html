@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reserva de citas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.css" rel="stylesheet">
+  <style>
+    /* Estilos personalizados */
+    .container-main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .background-image {
+      width: 100%;
+      height: auto;
+      position: absolute;
+      z-index: -1;
+      opacity: 0.1;
+    }
+
+    .container-box {
+      width: 90%;
+      max-width: 500px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 576px) {
+      .container-box {
+        width: 100%;
+        border-radius: 0;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5 container-main">
+    <div class="container-box">
+      <h1 class="text-center mb-4">Pide tu cita</h1>
+      <div id="personal-info" class="border p-4 mb-4">
+        <h2 class="text-center">Datos personales</h2>
+        <div class="mb-3">
+          <label for="userId" class="form-label">ID del usuario:</label>
+          <input type="text" id="userId" class="form-control" onchange="buscarMascotas()">
+        </div>
+        <div class="mb-3">
+          <label for="petName" class="form-label">Mascotas:</label>
+          <select id="petName" class="form-select mb-3"></select>
+        </div>
+      </div>
+
+      <div id="appointment-form" class="border p-4">
+        <h2 class="text-center">Reservar cita</h2>
+        <label for="doctor" class="form-label">Seleccionar Veterinario:</label>
+        <select id="doctor" class="form-select mb-3" onchange="mostrarCalendario()"></select>
+        <div id="calendar" class="mb-4"></div>
+        <label for="date" class="form-label">Fecha:</label>
+        <input type="date" id="date" class="form-control mb-3">
+        <label for="time" class="form-label">Hora:</label>
+        <input type="time" id="time" class="form-control mb-3">
+        <label for="reason" class="form-label">Motivo de la Consulta:</label>
+        <select id="reason" class="form-select mb-3">
+          <option value="Consulta general">Consulta general</option>
+          <option value="Control de medicación">Control de medicación</option>
+          <option value="Consulta especializada">Consulta especializada</option>
+          <!-- Agrega más opciones según sea necesario -->
+        </select>
+        <button onclick="reserveAppointment()" class="btn btn-primary d-block mx-auto">Reservar</button>
+        <p id="message" class="mt-3 text-center"></p>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.min.js"></script>
+  <script>
+    var disponibilidadDoctores = {
+      "Juan": ["2024-02-17", "2024-02-18", "2024-02-20"],
+      "Robert": ["2024-02-17", "2024-02-19", "2024-02-21"]
+    };
+
+    function buscarMascotas() {
+      // Aquí puedes realizar una consulta a la base de datos o acceder a una lista de mascotas relacionadas al usuario
+      // Por ahora, simplemente agregaremos algunas opciones de mascotas ficticias para propósitos de demostración
+      var userId = document.getElementById('userId').value;
+      var select = document.getElementById('petName');
+      select.innerHTML = ''; // Limpiar opciones anteriores
+
+      // Agregar opciones de mascotas ficticias relacionadas con el usuario ingresado
+      if (userId === '1') {
+        agregarMascota('Mascota 1', select);
+        agregarMascota('Mascota 2', select);
+      } else if (userId === '2') {
+        agregarMascota('Mascota 3', select);
+        agregarMascota('Mascota 4', select);
+      } else {
+        // Si el usuario no tiene mascotas registradas, mostrar un mensaje
+        select.innerHTML = '<option value="">No se encontraron mascotas relacionadas</option>';
+      }
+    }
+
+    function agregarMascota(mascota, select) {
+      var option = document.createElement('option');
+      option.value = mascota;
+      option.textContent = mascota;
+      select.appendChild(option);
+    }
+
+    function mostrarCalendario() {
+      var doctorSeleccionado = document.getElementById('doctor').value;
+      var diasDisponibles = disponibilidadDoctores[doctorSeleccionado] || [];
+      
+      var calendarEl = document.getElementById('calendar');
+      calendarEl.innerHTML = ''; // Limpiar calendario anterior
+      
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        plugins: ['dayGrid'],
+        selectable: true,
+        select: function(info) {
+          document.getElementById('date').value = info.startStr; // Set selected date in input field
+        },
+        datesSet: function(info) {
+          // Filtrar días disponibles en el calendario
+          var eventos = diasDisponibles.map(function(dia) {
+            return {
+              title: 'Disponible',
+              start: dia
+            };
+          });
+          calendar.addEventSource(eventos);
+        }
+      });
+
+      calendar.render();
+    }
+
+    function reserveAppointment() {
+      // Aquí puedes implementar la lógica para reservar la cita
+      alert('Cita reservada correctamente');
+    }
+  </script>
+</body>
+</html> 
+
+
+
+
+
+
+
